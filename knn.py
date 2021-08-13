@@ -130,7 +130,7 @@ def app():
 	st.title("KNN Visualizer using Streamlit")
 
 	st.subheader("Choose a Point (x,y) for Testing.")
-	col1, col2, col3 = st.beta_columns(3)
+	col1, col2, col3 = st.columns(3)
 	with col1:
 		x_ = st.slider("Choose input feature 1",
 						min_value = 0.0,
@@ -157,7 +157,7 @@ def app():
 	X = normalize(X)
 
 	st.subheader("Visualize the Dataset and neighbours.")
-	col1, col2 = st.beta_columns(2)
+	col1, col2 = st.columns(2)
 
 	with col1:
 		st.pyplot(plot_data_points(X, y, input_data))

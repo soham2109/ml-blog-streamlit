@@ -90,7 +90,7 @@ def plot_data(X, y, X_train, X_test, y_train, y_test, \
 def app():
 	st.title("Support Vector Machines")
 	st.subheader("Dataset")
-	col1, col2 = st.beta_columns(2)
+	col1, col2 = st.columns(2)
 	with col1:
 		dataset_type = st.selectbox("Choose the dataset type to train the SVM Classifier on:",
 									["Linearly Separable", "Moons", "Circles"])
@@ -98,7 +98,7 @@ def app():
 		num_points = st.slider("Choose the number of data points: ",
 								min_value=10, max_value=300)
 
-	col3, col4 = st.beta_columns(2)
+	col3, col4 = st.columns(2)
 	with col3:
 		use_noise = st.radio("Introduce noise in the dataset?",["No", "Yes"])
 	if use_noise=="Yes":
@@ -121,7 +121,7 @@ def app():
 				 "Sigmoid": "sigmoid"}
 
 	st.subheader("Choose Support Vector Machine Parameters")
-	col5, col6, col7 = st.beta_columns(3)
+	col5, col6, col7 = st.columns(3)
 	with col5:
 		kernel_type = st.radio("Choose the type of kernel: ",
 							   ["Linear", "Radial Basis Function", "Polynomial", "Sigmoid"])

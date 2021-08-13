@@ -26,7 +26,7 @@ def app():
 	st.title("Simple Linear Regression")
 	# Ask the user for the type of data to fit the regression model on
 
-	col4, col5 = st.beta_columns(2)
+	col4, col5 = st.columns(2)
 	with col4:
 		dataset_type = st.selectbox("Select the type of data: ",["linear","polynomial"])
 		if dataset_type=="polynomial":
@@ -42,7 +42,7 @@ def app():
 
 
 	# Ask if to include noise in the dataset
-	col6, col7 = st.beta_columns(2)
+	col6, col7 = st.columns(2)
 	with col6:
 		use_noise = st.radio("Introduce noise in the dataset?",["No", "Yes"])
 	if use_noise=="Yes":
@@ -93,7 +93,7 @@ def app():
 
 
 	# display the original coefficients and the predicted coefficients
-	col8, col9 = st.beta_columns(2)
+	col8, col9 = st.columns(2)
 	with col8:
 		# get the plot of linear regression fit
 		st.subheader("Get plot for regression")

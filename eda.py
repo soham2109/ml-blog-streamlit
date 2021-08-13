@@ -42,7 +42,7 @@ To explain the need for EDA, let's look into a famous dataset called the [**Ansc
 	"""
 	st.markdown(intro_to_EDA)
 
-	col1, col2 = st.beta_columns(2)
+	col1, col2 = st.columns(2)
 	with col1:
 		st.markdown(anscombe_quartet_diag_html, unsafe_allow_html=True)
 	with col2:

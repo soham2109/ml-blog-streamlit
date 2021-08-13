@@ -65,7 +65,7 @@ class mlp:
 
 
 	def get_data(self):
-		cols = st.beta_columns(4)
+		cols = st.columns(4)
 		with cols[0]:
 			sepal_length = st.slider('Sepal length',
 									 min_value=.01,
@@ -110,7 +110,7 @@ def app():
 	num_layers = st.slider("Choose number of hidden layers", min_value=2, max_value=5)
 
 	sizes = []
-	cols = st.beta_columns(num_layers)
+	cols = st.columns(num_layers)
 	for num in range(num_layers):
 		with cols[num]:
 			val = st.slider("Choose number of units in layer {}:".format(num+1),
@@ -121,7 +121,7 @@ def app():
 	hidden_layer_size = tuple(sizes)
 
 	#if hidden_layer_size:
-	col1, col2 = st.beta_columns(2)
+	col1, col2 = st.columns(2)
 	with col1:
 		activation = st.radio("Choose the activation function:",
 							  ["relu", "tanh", "logistic", "identity"])
