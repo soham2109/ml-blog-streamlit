@@ -1,0 +1,7 @@
+matplotlib
+mplcyberpunk
+numpy
+scipy
+pandas
+scikit-learn
+streamlit
