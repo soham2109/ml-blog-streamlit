@@ -6,16 +6,6 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 
-
-
-
-
-
-
-
-
-
-
 def app():
 	st.title("Exploratory Data Analysis APP".upper())
 	st.subheader("What is Exploratory Data Analysis (EDA)?")
