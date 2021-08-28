@@ -144,8 +144,8 @@ def app():
 	# ask for a input from the user
 	# test = st.button("Test your model")
 	# if test and clf:
-	prediction = clf.predict_test()
-	st.write("The predicted class: {}".format(prediction))
+	prediction = list(clf.predict_test())
+	st.write("The predicted class: {}".format(*prediction))
 
 
 
