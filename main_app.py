@@ -4,10 +4,12 @@ import svm
 import knn
 import mlp
 import intro_to_ml
+import jars_of_ml
 import streamlit as st
 
-PAGES = { "Exploratory Data Analysis": eda,
-		  "Intro to ML": intro_to_ml,
+PAGES = { "Intro to ML": intro_to_ml,
+		  "6 Jars of ML": jars_of_ml,
+		  "Exploratory Data Analysis": eda,
 		  "Linear Regression": lr,
 		  "Support Vector Machines": svm,
 		  "k-Nearest Neighbours": knn,

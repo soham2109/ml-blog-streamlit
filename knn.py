@@ -20,6 +20,8 @@ color_list = [k for k,v in mplc.cnames.items()]
 plt.style.use("cyberpunk")
 NUM_CLUSTERS=2
 
+np.random.seed(1001)
+
 def normalize(X):
 	# min-max normalizer
 	return (X - X.min())/(X.max()-X.min())
@@ -102,7 +104,7 @@ def plot_data_points_with_labels(X, y, X_nearest, y_nearest, input_data, label):
 				  # label="unknown",
 				  s = 40,
 				  alpha=0.7)
-	plt.text(input_data[0]+0.05, input_data[1]-0.05, "Prediction: {}".format(label))
+	plt.text(0.7, 0.1, "Predicted Label: {}".format(label))
 
 	i = 0
 	for x,y in zip(X_nearest, y_nearest):
@@ -124,6 +126,17 @@ def get_labels(X, y, input_data, k):
 	X_nearest, y_nearest = find_k_nearest_neightbours(X, y, input_data, k)
 	label = Counter(y_nearest).most_common()[0][0]
 	return label, X_nearest, y_nearest
+
+@st.cache
+def get_data():
+	# generate 2-d synthetic data with 2 cluster centers
+	X, y = make_blobs(n_samples = 100,
+					  n_features = 2,
+					  centers = NUM_CLUSTERS,
+					  cluster_std=2.1,
+					  random_state=0)
+	X = normalize(X)
+	return X,y
 
 
 def app():
@@ -148,14 +161,8 @@ def app():
 					  key="k")
 
 	input_data = np.array([x_, y_])
-	# generate 2-d synthetic data with 2 cluster centers
-	X, y = make_blobs(n_samples = 100,
-					  n_features = 2,
-					  centers = NUM_CLUSTERS,
-					  cluster_std=2.1,
-					  random_state=0)
-	X = normalize(X)
 
+	X, y = get_data()
 	st.subheader("Visualize the Dataset and neighbours.")
 	col1, col2 = st.columns(2)
 
