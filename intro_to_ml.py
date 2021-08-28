@@ -14,7 +14,7 @@ There are so many buzzwords around, like *artificial intelligence* (AI), *machin
 """
     st.markdown(markdown)
     col1, col2 = st.columns(2)
-	with col1:
+    with col1:
 		st.image(load_image("images/i01_ai_ml_dl_ds.png"),
 				 caption="AI vs ML vs DL vs DS")
 	with col2:
