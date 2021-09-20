@@ -33,7 +33,7 @@ def app():
 			poly_degree = st.number_input("Enter the degree of polynomial: ",
 										  format="%d",
 										  min_value=1,
-										  max_value=5,
+										  max_value=10,
 										  value=1)
 	# Ask the number of datapoints to regress on
 	with col5:
@@ -68,6 +68,7 @@ def app():
 												random_state=0)
 			coef = [coef]
 		else:
+			poly_degree = int(poly_degree+1)
 			actual_coeffs = np.random.randint(-10, 10, poly_degree)
 			X,y,coef = datasets.make_regression(n_samples = num_data_points,
 												n_features = 1,
