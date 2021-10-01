@@ -7,6 +7,18 @@ from sklearn.linear_model import LinearRegression
 
 plt.style.use("cyberpunk")
 np.random.seed(0)
+random_state=11
+
+def max_width(prcnt_width:int = 75):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f""" 
+                <style> 
+                .reportview-container .main .block-container{{{max_width_str}}}
+                </style>    
+                """, 
+                unsafe_allow_html=True,
+    )
+
 
 def plot_data(X,y, line_X, line_y):
 	fig, ax = plt.subplots(1,1, figsize=(8,8))
@@ -23,6 +35,7 @@ def plot_data(X,y, line_X, line_y):
 
 
 def app():
+	max_width(80)
 	st.title("Simple Linear Regression")
 	# Ask the user for the type of data to fit the regression model on
 
@@ -65,7 +78,7 @@ def app():
 												noise = noise_std,
 												coef=True,
 												bias = bias,
-												random_state=0)
+												random_state=random_state)
 			coef = [coef]
 		else:
 			poly_degree = int(poly_degree+1)
@@ -76,7 +89,7 @@ def app():
 												noise = noise_std,
 												coef=True,
 												bias = bias,
-												random_state=0)
+												random_state=random_state)
 			# y=np.zeros(y.shape)
 			for i in range(1,poly_degree):
 				y += actual_coeffs[i]*(np.power(X,i).flatten())

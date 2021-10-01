@@ -11,9 +11,21 @@ from matplotlib.colors import ListedColormap
 
 np.random.seed(0)
 plt.style.use("cyberpunk")
+random_state=11
+
+def max_width(prcnt_width:int = 75):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f""" 
+                <style> 
+                .reportview-container .main .block-container{{{max_width_str}}}
+                </style>    
+                """, 
+                unsafe_allow_html=True,
+    )
 
 
-def get_data(dataset_type, num_points, noise=0, random_state=0, n_features=2):
+
+def get_data(dataset_type, num_points, noise=0, n_features=2):
 	if dataset_type=="Moons":
 		X,y = make_moons(noise=noise,
 						 random_state=random_state,
@@ -88,6 +100,7 @@ def plot_data(X, y, X_train, X_test, y_train, y_test, \
 
 
 def app():
+	max_width(80)
 	st.title("Support Vector Machines")
 	st.subheader("Dataset")
 	col1, col2 = st.columns(2)

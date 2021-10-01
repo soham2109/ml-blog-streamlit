@@ -5,8 +5,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 
+def max_width(prcnt_width:int = 75):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f""" 
+                <style> 
+                .reportview-container .main .block-container{{{max_width_str}}}
+                </style>    
+                """, 
+                unsafe_allow_html=True,
+    )
 
 def app():
+	max_width(80)
 	st.title("Exploratory Data Analysis".upper())
 	st.subheader("What is Exploratory Data Analysis (EDA)?")
 	intro_to_EDA = """**Exploratory Data Analysis (EDA)** is a technique used by data scientists, data analysts and data engineers to analyze, investigate and summarize datasets, often employing data visualization methods.

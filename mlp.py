@@ -15,6 +15,17 @@ def get_dataset():
 	return X,y,names
 
 
+def max_width(prcnt_width:int = 75):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f""" 
+                <style> 
+                .reportview-container .main .block-container{{{max_width_str}}}
+                </style>    
+                """, 
+                unsafe_allow_html=True,
+    )
+
+
 class mlp:
 	def __init__(self, dataset, hidden_layer_size = 100,
 				 activation="relu", max_iter=200, test_size=0.2):
@@ -105,6 +116,7 @@ class mlp:
 
 
 def app():
+	max_width(80)
 	st.header("Multi-Layered Perceptron Model")
 	dataset = get_dataset()
 	num_layers = st.slider("Choose number of hidden layers", min_value=2, max_value=5)

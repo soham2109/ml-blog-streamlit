@@ -1,12 +1,25 @@
 import streamlit as st
 from PIL import Image
 
+
+def max_width(prcnt_width:int = 75):
+    max_width_str = f"max-width: {prcnt_width}%;"
+    st.markdown(f""" 
+                <style> 
+                .reportview-container .main .block-container{{{max_width_str}}}
+                </style>    
+                """, 
+                unsafe_allow_html=True,
+    )
+
+
 def load_image(path):
 	image = Image.open(path)
 	image.resize((1000, 1000))
 	return image
 
 def app():
+	max_width(80)
 	st.title("Introduction to Machine Learning")
 	st.markdown("---")
 	st.header("Jargon Buster")
