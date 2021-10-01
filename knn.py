@@ -138,35 +138,33 @@ def get_data(num_points=100):
 def introduction():
 	st.subheader("Introduction")
 	markdown="""
-The Nearest Neighbours (NN) algorithms are among the "simplest" of the supervised algorithms for the **task** of **Classification** (mostly, Regression is also possible using this algorithm). Nearest Neighbour is a special case of k-Nearest Neighbours (k-NN) algorithm where `k=1`. 
+The Nearest Neighbours (NN) algorithms are among the "simplest" of the supervised algorithms for the **task** of **Classification** (mostly, but regression is also possible). Nearest Neighbour is a special case of k-Nearest Neighbours (k-NN) algorithm where $k=1$. 
 
 #### Characteristics of kNN algorithm
 
  - **Lazy** : In **k-NN** all the labelled-training instances are simply stored and no explicit learning takes place. Hence, k-NN algorithm is called **lazy** learning algorithm. 
 During testing, the test-set instances are compared with the nearby training instances and the labels are consequently decided. 
 (The idea of what **near** means is not quite clear at this point, but it will be clarified soon.)
-
  - **Local** : The basic principle of kNN model is that instead of learning the approximate mapping function $f(x)=y$ globally from the training data, kNN approximates a function **locally**, which depends on the testing data point as well as the training instances.
  - **Instance Based**: Since the prediction of the class of the test data depends on the comparison of a query of the data with the training set, kNN is called a **instance-based** learning.
  - **Non-parametric**: The kNN algorithm does not in any form make any assumptions about the training data, or the mapping function, hence, there are no parameters involved to learn.
  - Commonly used as a **discriminative** model.
 
-
- #### Prediction Algorithm for 1-Nearest Neighbour
- 
+---  
+#### Prediction Algorithm for 1-Nearest Neighbour
+---
  closest_point := None  
  closest_distance := $\inf$  
  for $i$= 1, $\ldots$, n:  
-    &emsp;- current_distance := $d(x^{[i]}, x^{[q]})$  
- 	&emsp;- if current_distance < closest_distance:   
- 	&emsp;&emsp;	* closest_distance := current_distance  
- 	&emsp;&emsp;	* target_value_of_closest_point := $y^{[i]}$   
-
+	&emsp;- current_distance := $d(x^{[i]}, x^{[q]})$  
+	&emsp;- if current_distance < closest_distance:   
+	&emsp;&emsp;	* closest_distance := current_distance  
+	&emsp;&emsp;	* target_value_of_closest_point := $y^{[i]}$   
+---  
 
  The prediction for 1-Nearest Neighbour algorithm is the target value of the closest point.
  The closest point by default is measured using **Euclidean Distance** (also called $L^2$ distance), that computes the distance between two points, $x^{[a]}$ and $x^{[b]}$ given by the formula:  
  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;$d(x^{[a]}, x^{[b]})$ = $\sqrt{\sum_{j=1}^n (x^{[a]}_j- x^{[b]}_j)^2}$  
-
 
  In k-Nearest Neighbour there are two prediction algorithms:   
    - Plurality voting among the k nearest neighbors for classification, i.e. the **mode** of the target labels of the k-Nearest Neighbours is chosen to be the label of the target value.  
@@ -179,10 +177,11 @@ During testing, the test-set instances are compared with the nearby training ins
 #### Disadvantages:
   - Suffers from the **curse of dimensionality**, which means that as the number of features of the data increases, so does the complexity in prediction.
   - If you are familiar with time-complexity of algorithms, k-NN in its naive version has the time-complexity of $O(nm)$ where $n$ stands for the number of training instances, whereas $m$ stands for the number of features of each data-point in the training set.
-    But there are other implements that can be used to reduce the complexity (not discussed here).
+	But there are other implements that can be used to reduce the complexity (not discussed here).
 
-
-#### Pseudocode for Naive k-NN (one of the possible approaches)
+---
+#### Prediction Algorithm for Naive k-NN
+---  
 $\mathrm{D}_k := \{\}$  
 while $|\mathrm{D}_k| < k$:  
 	&emsp;- closest_distance := $\inf$  
@@ -191,25 +190,27 @@ while $|\mathrm{D}_k| < k$:
 	&emsp;&emsp;	- closest_point := $x^{[i]}$  
 	&emsp;- add closest_point to $\mathrm{D}_k$  
 
+---  
 
 	"""
 	st.markdown(markdown)
 
 
 def max_width_(prcnt_width:int = 75):
-    max_width_str = f"max-width: {prcnt_width}%;"
-    st.markdown(f""" 
-                <style> 
-                .reportview-container .main .block-container{{{max_width_str}}}
-                </style>    
-                """, 
-                unsafe_allow_html=True,
-    )
+	max_width_str = f"max-width: {prcnt_width}%;"
+	st.markdown(f""" 
+				<style> 
+				.reportview-container .main .block-container{{{max_width_str}}}
+				</style>    
+				""", 
+				unsafe_allow_html=True,
+	)
 
 
 def app():
 	max_width_(80)
 	st.title("k-Nearest Neighbours Algorithm")
+	st.markdown("---")
 
 	introduction()
 
@@ -257,6 +258,13 @@ So, one can change the size of the training data, the feature values termed as _
 		label, X_nearest, y_nearest = get_labels(X, y, input_data, k)
 		# print(X_nearest.shape)
 		st.pyplot(plot_data_points_with_labels(X, y, X_nearest, y_nearest, input_data, label))
+
+	st.header("References")
+	references="""
+- Sebastian Raschka's notes on [kNN](https://github.com/rasbt/stat451-machine-learning-fs20/raw/master/L02/02-knn__notes.pdf) from his course 
+[STAT 451](https://sebastianraschka.com/teaching/stat451-fs2020/) - Introduction to Machine Learning and Statistical Pattern Classification 2020
+	"""
+	st.markdown(references)
 
 
 if __name__=="__main__":
