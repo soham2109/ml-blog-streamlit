@@ -11,11 +11,11 @@ random_state=11
 
 def max_width(prcnt_width:int = 75):
     max_width_str = f"max-width: {prcnt_width}%;"
-    st.markdown(f""" 
-                <style> 
+    st.markdown(f"""
+                <style>
                 .reportview-container .main .block-container{{{max_width_str}}}
-                </style>    
-                """, 
+                </style>
+                """,
                 unsafe_allow_html=True,
     )
 
@@ -36,30 +36,32 @@ def plot_data(X,y, line_X, line_y):
 def introduction():
 	st.header("What is Linear Regression?")
 	markdown = """
-Linear Regression is a **supervised** machine learning algorithm that is used to find the **linear** relationship (mapping) between the independent variables 
-(input training features) and the dependent variable (the target value). It is of two types:  
+Linear Regression is a **supervised** machine learning algorithm that is used to find the **linear** relationship (mapping) between the independent variables
+(input training features) and the dependent variable (the target value). It is of two types:
   - Linear Regression : when the target value id dependent on one independent variable, i.e. of the form ($y = mx + c$).
-    For **Linear Regression**, the dependent variable($y$) is related to the independent variable ($x$) by the form: $y$ = $\\beta_0 + \\beta_1x$  
+    For **Linear Regression**, the dependent variable($y$) is related to the independent variable ($x$) by the form: $y$ = $\\beta_0 + \\beta_1x$
 where $\\beta_0$ is the intercept (bias) and $\\beta_1$ is the slope (i.e. the change in the dependent variable when the independent variable changes).
   - Multiple Regression : when there are multiple independent variables of which the dependent variable is a function of.
     For **Multiple Regression**, there are multiple independent variables on which the target variable is dependent on. So, if the input varables are $x_1, x_2, \ldots, x_n$
-then the relationship between them and the dependent variable ($y$) is: $y$ = $\\beta_0 + \\beta_1x_1 + \\beta_2x_2 + \ldots + \\beta_nx_n$, where $\\beta_0$ is the intercept (or bias) 
+then the relationship between them and the dependent variable ($y$) is: $y$ = $\\beta_0 + \\beta_1x_1 + \\beta_2x_2 + \ldots + \\beta_nx_n$, where $\\beta_0$ is the intercept (or bias)
 and $\{\\beta_i\}_{i=1}^n$ are the coefficients.
 
 
-The task is to find the best fit values for the intercepts and the coefficients, such that the **prediction error** (the difference between the predicted value 
-and the actual (or true) value, also known as the **residue**) is minimized. 
+The task is to find the best fit values for the intercepts and the coefficients, such that the **prediction error** (the difference between the predicted value
+and the actual (or true) value, also known as the **residue**) is minimized.
 
-The objective function (**residual sum of squares (RSS)**) thus can be written as $\\underset{\\beta}{min} \sum_{i=1}^n(y_i-\widehat{y}_i)^2$, where $\widehat{y}_i$ is the model predicted target value, 
-$y_i$ is the true target value and $\\beta := \{\\beta_0, \\beta_1, \ldots, \\beta_n\}$ is the set of all parameters of the regression model.
+The objective function (**residual sum of squares (RSS)**) thus can be written as $minimize \sum_{i=1}^n(y_i-\widehat{y}_i)^2$, where $\widehat{y}_i$ is the model predicted target value,
+$y_i$ is the true target value over $\\beta := \{\\beta_0, \\beta_1, \ldots, \\beta_n\}$ is the set of all parameters of the regression model.
+
+For simple linear regression, there are closed form solutions for $\\beta_0$ and $\\beta_1$, which are given by $\widehat{\\beta}_1 = \\frac{\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})}{\sum_{i=1}^{n}(x_i-\\bar{x})^2}$ and $\\beta_0 = \\bar{y} - \widehat{\\beta}_1\\bar{x}$, where $\\bar{x}$=$\\frac{1}{n}\sum_{i=1}^{n}x_i$ and $\\bar{y}$=$\\frac{1}{n}\sum_{i=1}^{n}y_i$, where $x$ is the independent variable and $y$ is the dependent variable.
 
 
-#### Assumptions of Linear Regression
-The formulation of linear regression depends on the following four assumptions:  
+## Assumptions of Linear Regression
+The formulation of linear regression depends on the following four assumptions:
   - **Linearity** : The dependent variable $y$ should be linearly related to the independent variables $x$. This can be checked using the scatterplot approach.
   - **Normaliy** : The dependent variable $y$ and the error terms (residues) must possess a normal distribution (gaussian distribution with mean 0 and variance 1). This can be observed using histograms.
   - **Homoskedestacity** : The error terms must possess constant variance. This can be observed using a residual plot.
-  - **Independence** : The error terms (residuals) must be uncorrelated i.e. error at $\epsilon_t$ must not indicate the at error at $\epsilon_{t+1}$. Presence of correlation in error terms is known as 
+  - **Independence** : The error terms (residuals) must be uncorrelated i.e. error at $\epsilon_t$ must not indicate the at error at $\epsilon_{t+1}$. Presence of correlation in error terms is known as
     **autocorrelation** and it drastically affects the regression coefficients and standard error values since they are assumed to be uncorrelated. Correlation matrix can be used to check this.
   - **No Multicollinearity** : There must be no correlation among independent variables. Presence of correlation in independent variables lead to Multicollinearity. If variables are correlated, it becomes extremely difficult for the model to determine the true effect of IVs on DV.
 	"""
@@ -73,11 +75,20 @@ def app():
 
 	introduction()
 
-	st.markdown("")	
-	st.markdown("")	
-	st.markdown("")	
+	st.markdown("")
+	st.markdown("")
+	st.markdown("")
 
+	markdown="""
 
+## Linear Regression Hands-on Tool
+
+Below is an interactive tool, that allows you to understand how non-linearity and noise in data can affect the prediction of simple linear regression, i.e. how does linear regression coefficients change if any of the assumptions mentioned above are violated.
+
+There are knobs for the type of data one wants to fit the model to, i.e. whether the input data is linear, or polynomial in nature and if it is polynomial what would be its order.
+Other options are if you want to increase the noise present in the data, then how does the linear regressor make the fit.
+	"""
+	st.markdown(markdown)
 	col4, col5 = st.columns(2)
 	with col4:
 		dataset_type = st.selectbox("Select the type of data: ",["linear","polynomial"])
@@ -153,6 +164,8 @@ def app():
 		st.pyplot(plot_data(X, y, line_X, line_y))
 	with col9:
 		# st.text("\n\n\n")
+		st.markdown("")
+		st.markdown("")
 		st.subheader("Performance of the Linear Regression model.")
 		st.text("\n\n\n")
 		st.text("The original coefficient(s) is(are):\nCoefficients: {},\nIntercept: {}".format(
@@ -164,8 +177,18 @@ def app():
 		st.text("\n\n\n")
 		# display the overall score achieved using LinearRegression
 		st.text("The R2-score achieved is: {}".format(lr.score(X, y)))
+		text="""
+Note:
+**R2-score** is a measure of how good the regression model is a fit to the input data. It has values between 0 and 1. An R2-score close to 1 means that the model is a good-fit, whereas, a value close to 0 is not a good fit, and has not been able to capture the variability in the data.
+		"""
+		st.markdown(text)
 
-
+	references="""
+## References:
+  - An Introduction to Statistical Learning with Application in R by James, Witten, Hastie and Tibshirani
+  - AnalyticsVidhya [article]() on linear regression
+	"""
+	st.markdown(references)
 
 if __name__ == "__main__":
 	app()
