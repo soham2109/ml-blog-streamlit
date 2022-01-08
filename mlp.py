@@ -6,6 +6,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 
+
+np.random.seed(0)
+random_state=11
+
+
 @st.cache
 def get_dataset():
 	iris = datasets.load_iris()
@@ -17,11 +22,11 @@ def get_dataset():
 
 def max_width(prcnt_width:int = 75):
     max_width_str = f"max-width: {prcnt_width}%;"
-    st.markdown(f""" 
-                <style> 
+    st.markdown(f"""
+                <style>
                 .reportview-container .main .block-container{{{max_width_str}}}
-                </style>    
-                """, 
+                </style>
+                """,
                 unsafe_allow_html=True,
     )
 
@@ -117,7 +122,43 @@ class mlp:
 
 def app():
 	max_width(80)
-	st.header("Multi-Layered Perceptron Model")
+	st.header("Multi-Layered Perceptron (MLP) Model")
+
+	markdown = """
+Before getting into what is multi-layered perceptron, we need to first understand what is **perceptron**. A perceptron model, in Machine Learning, is a supervised learning algorithm for binary classification. Based on a neuron in the human brain, perceptron acts as an artificial neuron that performs human-like brain functions. The perceptron uses a hyperplane to separate the input data into two classes. First conceptualized by Frank Rosenblat in 1957, it forms the basic building block for modern deep learning models. Perceptron enables machines to automatically learn the weights and biases. There are two perceptron models:
+
+ - **Single-layered Perceptron**: It is defined by its ability to **linearly classify** inputs. This means that this model only utilizes a single hyperplane line and classifies the inputs as per the learned weights.
+ - **Multi-layered Perceptron (MLP)**: It is a high processing algorithm that allows machines to classify inputs using more than one layers. The perceptron consists of an input layer and an output layer which are fully connected. MLPs have the same input and output layers but may have multiple hidden layers in between, and classifies datasets which are not linearly separable. It is also called a **feed-forward neural network**. The first layer is the _input layer_, the last layer is the _output layer_ and all other layers in between are called the _hidden layers_. The number of hidden layers and the number of neurons per layer, are called **hyperparameters** of the neural network, and they need tuning.
+
+![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.ta1EwD8y5Jw781ckzQR9GQHaF3%26pid%3DApi&f=1)
+
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[Source](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.ta1EwD8y5Jw781ckzQR9GQHaF3%26pid%3DApi&f=1)
+
+Except for the input nodes, each node is a neuron that uses a nonlinear activation function. MLP utilizes a supervised learning technique called **backpropagation** for training, using the gradient descent algorithm.
+
+
+If a multilayer perceptron has a linear activation function in all neurons, i.e., a linear function that maps the weighted inputs to the output of each neuron, then linear algebra shows that any number of layers can be reduced to a two-layer input-output model. In MLPs some neurons use a nonlinear activation function that was developed to model the frequency of action potentials, or firing, of biological neurons. Since MLPs are fully connected, each node in one layer connects with a certain weight $w_{ij}$ to every node in the following layer.
+	"""
+	st.markdown(markdown)
+	st.markdown("")
+	st.markdown("")
+	st.markdown("")
+
+	markdown="""
+
+## MLP Hands-on Tool
+
+Below is an interactive tool, that allows you to understand how MLP parameters and hyper-paramters like number of hidden layers, number of neurons per hidden layer, the activation function, etc. affects its prediction, i.e. the separating hyperplane it creates.
+
+There are knobs for the type of data one wants to fit the model to, i.e. whether the input data is clean, or if you want to introduce noise in the data, and see how it affects the prediction of the model.
+	"""
+	st.markdown(markdown)
+	st.markdown("")
+	st.markdown("")
+	st.markdown("")
+
+
+
 	dataset = get_dataset()
 	num_layers = st.slider("Choose number of hidden layers", min_value=2, max_value=5)
 
@@ -158,6 +199,15 @@ def app():
 	# if test and clf:
 	prediction = list(clf.predict_test())
 	st.write("The predicted class: {}".format(*prediction))
+
+	st.markdown("")
+	st.markdown("")
+	references="""
+## References:
+  - Multi-layered Perceptron notes at [CMU](https://www.cs.cmu.edu/~10701/slides/multi-layer-perceptron_notes.pdf)
+  - Wikipedia [article](https://en.wikipedia.org/wiki/Multilayer_perceptron) on Multi-Layered Perceptron
+	"""
+	st.markdown(references)
 
 
 
